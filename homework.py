@@ -3,10 +3,10 @@ class InfoMessage:
 
     def __init__(self,
                 training_type: str,
-                 duration: float,
-                 distance: float,
-                 speed : float,
-                 calories : float,
+                duration : float,
+                distance : float,
+                speed : float,
+                calories : float,
                  ) -> None:
         self.training_type = training_type
         self.duration = duration
@@ -17,11 +17,11 @@ class InfoMessage:
     def get_message(self) -> str:
         
         return (f"Тип тренировки: {self.training_type}; "
-        f"Длительность: {self.duration:.3f} ч.; "
-        f"Дистанция: {self.distance:.3f} км; "
-        f"Ср. скорость: {self.speed:.3f} км/ч; "
-        f"Потрачено ккал: {self.calories:.3f}.")
-    
+                f"Длительность: {self.duration:.3f} ч.; "
+                f"Дистанция: {self.distance:.3f} км; "
+                f"Ср. скорость: {self.speed:.3f} км/ч; "
+                f"Потрачено ккал: {self.calories:.3f}.")
+
 
 class Training:
     """Базовый класс тренировки."""
@@ -44,7 +44,7 @@ class Training:
 
         action = self.action
 
-        return  action * self.LEN_STEP / self.M_IN_KM 
+        return action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
@@ -88,7 +88,6 @@ class Running(Training):
         # наследуем функциональность конструктора из класса-родителя
         super().__init__(action, duration, weight)
         
-
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         
@@ -124,7 +123,6 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
-    
     LEN_STEP: float = 1.38
     COEFF_SWM_1 = 1.1
     COEFF_SWM_2 = 2
