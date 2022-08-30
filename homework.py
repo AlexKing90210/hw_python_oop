@@ -83,7 +83,7 @@ class Running(Training):
                  weight: float,
                  ) -> None:
         # наследуем функциональность конструктора из класса-род
-                    super().__init__(action, duration, weight)
+        super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
