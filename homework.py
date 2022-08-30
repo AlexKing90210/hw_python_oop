@@ -2,11 +2,11 @@ class InfoMessage:
     """Информационное сообщение о тренировке."""
 
     def __init__(self,
-                training_type: str,
-                duration : float,
-                distance : float,
-                speed : float,
-                calories : float,
+                 training_type: str,
+                 duration: float,
+                 distance: float,
+                 speed: float,
+                 calories: float,
                  ) -> None:
         self.training_type = training_type
         self.duration = duration
@@ -15,7 +15,6 @@ class InfoMessage:
         self.calories = calories
 
     def get_message(self) -> str:
-        
         return (f"Тип тренировки: {self.training_type}; "
                 f"Длительность: {self.duration:.3f} ч.; "
                 f"Дистанция: {self.distance:.3f} км; "
@@ -25,10 +24,12 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
-
-    LEN_STEP: float = 0.65
-    M_IN_KM: int = 1000
-    M_IN_HOUR: int = 60
+    LEN_STEP:
+        float = 0.65
+    M_IN_KM:
+        int = 1000
+    M_IN_HOUR:
+        int = 60
 
     def __init__(self,
                  action: int,
@@ -50,7 +51,6 @@ class Training:
         """Получить среднюю скорость движения."""
 
         distance = self.get_distance()
-        
         return distance / self.duration
 
     def get_spent_calories(self) -> float:
@@ -85,23 +85,21 @@ class Running(Training):
                  duration: float,
                  weight: float,
                  ) -> None:
-        # наследуем функциональность конструктора из класса-родителя
-        super().__init__(action, duration, weight)
-        
+        # наследуем функциональность конструктора из класса-род
+                    super().__init__(action, duration, weight)
+
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        
-        return ((self.COEFF_CALORIE_1 * self.get_mean_speed()
-                - self.COEFF_CALORIE_2) * self.weight
-                / self.M_IN_KM * self.duration * self.M_IN_HOUR)
+        return ((self.COEFF_CALORIE_1 * self.get_mean_speed() -
+                self.COEFF_CALORIE_2) * self.weight /
+                self.M_IN_KM * self.duration * self.M_IN_HOUR)
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-
     COEFF_WALK_1 = 0.035
     COEFF_WALK_2 = 0.029
-    
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -115,15 +113,16 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
 
-        return ((self.COEFF_WALK_1 * self.weight
-                + (self.get_mean_speed()**2 // self.height)
-                * self.COEFF_WALK_2 * self.weight)
-                * self.duration * self.M_IN_HOUR)
+        return ((self.COEFF_WALK_1 * self.weight +
+                (self.get_mean_speed()**2 // self.height) *
+                self.COEFF_WALK_2 * self.weight) * self.duration *
+                self.M_IN_HOUR)
 
 
 class Swimming(Training):
     """Тренировка: плавание."""
-    LEN_STEP: float = 1.38
+    LEN_STEP:
+        float = 1.38
     COEFF_SWM_1 = 1.1
     COEFF_SWM_2 = 2
 
@@ -142,19 +141,17 @@ class Swimming(Training):
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
 
-        return (self.length_pool * self.count_pool 
-        / self.M_IN_KM / self.duration)
+        return (self.length_pool * self.count_pool /
+                self.M_IN_KM / self.duration)
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-
-        return ((self.get_mean_speed() + self.COEFF_SWM_1) * 
+        return ((self.get_mean_speed() + self.COEFF_SWM_1) *
                 self.COEFF_SWM_2 * self.weight)
 
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    
     training_type = {
         'SWM': Swimming,
         'RUN': Running,
