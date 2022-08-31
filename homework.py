@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class UnsupportedTypeTraining(Exception):
     """Исключение для неподдерживаемых типов тренировки."""
