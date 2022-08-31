@@ -1,3 +1,12 @@
+from dataclasses import dataclass
+
+@dataclass
+class UnsupportedTypeTraining(Exception):
+    """Исключение для неподдерживаемых типов тренировки."""
+    print(Exception)
+
+
+@dataclass
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -22,6 +31,7 @@ class InfoMessage:
                 f"Потрачено ккал: {self.calories:.3f}.")
 
 
+@dataclass
 class Training:
     """Базовый класс тренировки."""
     LEN_STEP: float = 0.65
@@ -92,6 +102,7 @@ class Running(Training):
                 / self.M_IN_KM * self.duration * self.M_IN_HOUR)
 
 
+@dataclass
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     COEFF_WALK_1 = 0.035
@@ -116,6 +127,7 @@ class SportsWalking(Training):
                 * self.M_IN_HOUR)
 
 
+@dataclass
 class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP: float = 1.38
@@ -152,7 +164,8 @@ def read_package(workout_type: str, data: list) -> Training:
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking}
-
+    if workout_type not in training_type.keys():
+        raise UnsupportedTypeTraining('Неподдерживаемый тип тренировки')
     training_class = training_type[workout_type]
     training_obj = training_class(*data)
     return training_obj
